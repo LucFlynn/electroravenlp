@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Your Email | The Testing Engine</title>
+    <meta name="description" content="Your personalized bottleneck report is on the way!">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        /* Checkmark animation */
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #22c55e;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark-check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            stroke: #22c55e;
+            stroke-width: 3;
+            fill: none;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Delayed fade in */
+        .fade-in-delay {
+            animation: fadeIn 0.6s ease-in 0.3s both;
+        }
+
+        /* Gradient button */
+        .gradient-button {
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            transition: all 0.3s ease;
+        }
+
+        .gradient-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Timeline */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, #8b5cf6, #06b6d4);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div class="text-xl font-bold">
+                <a href="index.html" class="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">The Testing Engine</a>
+            </div>
+            <a href="#" id="book-call-btn" class="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold text-sm transition-colors">
+                Book a Call
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section with Checkmark -->
+    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+
+            <!-- Animated Checkmark -->
+            <div class="flex items-center justify-center mb-8 fade-in">
+                <svg class="w-32 h-32" viewBox="0 0 52 52">
+                    <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+
+            <!-- Headline -->
+            <div class="fade-in-delay">
+                <h1 class="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
+                    Check Your Email! 📧
+                </h1>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-4">
+                    We've sent your personalized bottleneck report to <span id="user-email" class="text-white font-semibold"></span>
+                </p>
+                <p class="text-gray-500">
+                    It should arrive in the next 2-3 minutes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Happens Next Timeline -->
+    <section class="pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-center">What Happens Next</h2>
+
+            <div class="space-y-6">
+
+                <!-- Timeline Item 1 -->
+                <div class="relative pl-8 pb-8 timeline-item">
+                    <div class="absolute left-0 top-0 w-8 h-8 -ml-3 bg-purple-500 rounded-full flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 ml-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-sm font-semibold text-purple-500">TODAY</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Review Your Custom Report</h3>
+                        <p class="text-gray-400">Check your inbox for a detailed breakdown of your bottlenecks, plus specific recommendations for your agency.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative pl-8 pb-8 timeline-item">
+                    <div class="absolute left-0 top-0 w-8 h-8 -ml-3 bg-cyan-500 rounded-full flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                        </svg>
+                    </div>
+                    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 ml-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-sm font-semibold text-cyan-500">TOMORROW</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Get the 48-Hour Launch System Guide</h3>
+                        <p class="text-gray-400">We'll send you our complete guide showing how to get campaigns live in 2 days instead of 2 weeks.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative pl-8">
+                    <div class="absolute left-0 top-0 w-8 h-8 -ml-3 bg-purple-500 rounded-full flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/>
+                            <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/>
+                        </svg>
+                    </div>
+                    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 ml-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-sm font-semibold text-purple-500">THIS WEEK</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Join Our Newsletter</h3>
+                        <p class="text-gray-400">Get weekly tips, templates, and case studies on scaling your agency infrastructure.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Secondary Offer - Video Training -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-gradient-to-r from-purple-500/10 to-cyan-500/10 border border-purple-500/50 rounded-2xl p-8 sm:p-12">
+
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl sm:text-4xl font-bold mb-4">While You Wait: Watch This Free Training</h2>
+                    <p class="text-xl text-gray-400">The 3 Infrastructure Mistakes Costing Agencies $50k+/Year</p>
+                </div>
+
+                <!-- Video Embed Placeholder -->
+                <div class="aspect-video bg-gray-800 rounded-xl mb-8 flex items-center justify-center border border-gray-700">
+                    <div class="text-center">
+                        <svg class="w-20 h-20 mx-auto mb-4 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
+                        </svg>
+                        <p class="text-gray-400">
+                            <!-- Replace this div with your video embed code -->
+                            Add your YouTube or Vimeo embed code here
+                        </p>
+                        <p class="text-sm text-gray-500 mt-2">
+                            Duration: 18 minutes
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Video Benefits -->
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="text-3xl mb-2">🎯</div>
+                        <h3 class="font-semibold mb-1">Mistake #1</h3>
+                        <p class="text-sm text-gray-400">Manual processes that don't scale</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl mb-2">⚡</div>
+                        <h3 class="font-semibold mb-1">Mistake #2</h3>
+                        <p class="text-sm text-gray-400">No standardized workflows</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl mb-2">🔥</div>
+                        <h3 class="font-semibold mb-1">Mistake #3</h3>
+                        <p class="text-sm text-gray-400">Treating every campaign as unique</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Alternative Secondary Offer - Download -->
+    <section class="pb-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 sm:p-12">
+
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+
+                    <!-- Left side - Content -->
+                    <div>
+                        <h2 class="text-3xl font-bold mb-4">Download: The Complete Agency Launch Playbook</h2>
+                        <p class="text-gray-400 mb-6">Everything you need to start launching campaigns in 48 hours instead of 4 weeks.</p>
+
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-cyan-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>48-hour launch checklist</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-cyan-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Landing page template library</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-cyan-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Monitoring setup guide</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-cyan-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Offer creation framework</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Right side - Download CTA -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-xl p-8 text-center">
+                        <div class="text-6xl mb-4">📥</div>
+                        <h3 class="text-xl font-bold mb-4">Get Instant Access</h3>
+                        <p class="text-sm text-gray-400 mb-6">Your email is already saved. Just click to download.</p>
+                        <a href="#" class="block gradient-button text-white font-bold py-4 px-8 rounded-lg mb-3">
+                            Download Playbook (PDF)
+                        </a>
+                        <p class="text-xs text-gray-500">42 pages • 5.2 MB</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="pb-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+            <p class="text-xl text-gray-400 mb-8">Book a free 15-minute call to see how we can help you launch faster.</p>
+            <a href="#" class="inline-block gradient-button text-white font-bold py-4 px-8 rounded-lg text-lg">
+                Book Your Free Strategy Call
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col items-center justify-center gap-4">
+                <div class="text-xl font-bold">
+                    <span class="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">The Testing Engine</span>
+                </div>
+                <p class="text-gray-500 text-sm">Infrastructure for agencies that move fast</p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-gray-300 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Terms</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Contact</a>
+                </div>
+                <p class="text-xs text-gray-600">© 2025 The Testing Engine. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Get email from URL parameter
+        function displayUserEmail() {
+            const params = new URLSearchParams(window.location.search);
+            const email = params.get('email');
+
+            if (email) {
+                document.getElementById('user-email').textContent = email;
+            } else {
+                document.getElementById('user-email').textContent = 'your inbox';
+            }
+        }
+
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', displayUserEmail);
+
+        // Update Calendly link (placeholder - user will customize)
+        document.getElementById('book-call-btn').href = 'https://calendly.com/your-link';
+    </script>
+
+</body>
+</html>

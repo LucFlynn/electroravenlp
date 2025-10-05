@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bottleneck Assessment Results | The Testing Engine</title>
+    <meta name="description" content="Here's what's holding your agency back and how to fix it.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        /* Sticky header blur effect */
+        .header-blur {
+            backdrop-filter: blur(12px);
+            background-color: rgba(10, 10, 10, 0.8);
+        }
+
+        /* Gradient button */
+        .gradient-button {
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            transition: all 0.3s ease;
+        }
+
+        .gradient-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Progress bar animation */
+        .score-bar {
+            transition: width 1s ease-out;
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Status badge colors */
+        .status-green {
+            background-color: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border-color: #22c55e;
+        }
+
+        .status-yellow {
+            background-color: rgba(234, 179, 8, 0.1);
+            color: #eab308;
+            border-color: #eab308;
+        }
+
+        .status-orange {
+            background-color: rgba(249, 115, 22, 0.1);
+            color: #f97316;
+            border-color: #f97316;
+        }
+
+        .status-red {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border-color: #ef4444;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 header-blur border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div class="text-xl font-bold">
+                <a href="index.html" class="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">The Testing Engine</a>
+            </div>
+            <a href="#" id="book-call-btn" class="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold text-sm transition-colors">
+                Book a Call
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center fade-in">
+            <h1 class="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
+                Your Bottleneck Assessment Results
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                Here's what's holding your agency back (and how to fix it)
+            </p>
+        </div>
+    </section>
+
+    <!-- Results Display -->
+    <section class="pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 sm:p-12 fade-in">
+
+                <!-- Status Badge -->
+                <div class="flex items-center justify-center mb-8">
+                    <div id="status-badge" class="inline-flex items-center gap-2 px-6 py-3 border-2 rounded-full font-semibold text-lg">
+                        <span id="status-icon"></span>
+                        <span id="status-text"></span>
+                    </div>
+                </div>
+
+                <!-- Score Display -->
+                <div class="text-center mb-8">
+                    <div class="text-5xl font-bold mb-2">
+                        <span id="score-display">0</span><span class="text-gray-500">/25</span>
+                    </div>
+                    <p class="text-gray-400">Your Bottleneck Score</p>
+                </div>
+
+                <!-- Visual Progress Bar -->
+                <div class="mb-12">
+                    <div class="w-full bg-gray-800 rounded-full h-4">
+                        <div id="score-bar" class="score-bar h-4 rounded-full transition-all" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Interpretation -->
+                <div class="prose prose-invert max-w-none">
+                    <div id="interpretation-content" class="text-gray-300 space-y-4">
+                        <!-- Content will be injected by JavaScript -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Personalized Recommendations -->
+    <section class="pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-center">Your Personalized Recommendations</h2>
+
+            <div id="recommendations-container" class="space-y-6">
+                <!-- Recommendations will be injected by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-center">Here's How to Fix This</h2>
+            <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Choose the path that works best for your agency</p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+
+                <!-- Option 1: DIY -->
+                <div class="bg-gray-800 border border-gray-700 rounded-xl p-8 hover:border-purple-500 transition-all">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-500/10 rounded-full mb-4">
+                            <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Do It Yourself</h3>
+                        <p class="text-3xl font-bold text-purple-500 mb-4">Free</p>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Download our launch checklist</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Access template library</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Get SOPs and playbooks</span>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="block w-full text-center px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-colors">
+                        Download Free Resources
+                    </a>
+                </div>
+
+                <!-- Option 2: Audit -->
+                <div class="bg-gray-800 border-2 border-purple-500 rounded-xl p-8 relative transform md:scale-105">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-gradient-to-r from-purple-500 to-cyan-500 text-white px-4 py-1 rounded-full text-sm font-bold">
+                            MOST POPULAR
+                        </span>
+                    </div>
+
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-500/10 rounded-full mb-4">
+                            <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Done-For-You Audit</h3>
+                        <p class="text-3xl font-bold text-purple-500 mb-4">$97</p>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">We'll audit your current setup</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Get a custom video walkthrough</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Includes 1 free landing page template</span>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="block w-full text-center gradient-button text-white font-bold py-3 px-6 rounded-lg">
+                        Get Your $97 Audit
+                    </a>
+                </div>
+
+                <!-- Option 3: Done For You -->
+                <div class="bg-gray-800 border border-gray-700 rounded-xl p-8 hover:border-purple-500 transition-all">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-500/10 rounded-full mb-4">
+                            <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Work With Us</h3>
+                        <p class="text-lg text-gray-400 mb-4">Limited Spots</p>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Full Testing Engine access</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">4 landing pages/month</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">24/7 monitoring</span>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="block w-full text-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors">
+                        Book a Strategy Call
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="bg-gradient-to-r from-purple-500/10 to-cyan-500/10 border border-purple-500/50 rounded-2xl p-12">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4">Ready to Stop Bleeding Retainers?</h2>
+                <p class="text-xl text-gray-400 mb-8">Book a free 15-minute strategy call to see how we can help you launch campaigns in 48 hours instead of 4 weeks.</p>
+                <a href="#" class="inline-block gradient-button text-white font-bold py-4 px-8 rounded-lg text-lg">
+                    Book Your Free Strategy Call
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col items-center justify-center gap-4">
+                <div class="text-xl font-bold">
+                    <span class="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">The Testing Engine</span>
+                </div>
+                <p class="text-gray-500 text-sm">Infrastructure for agencies that move fast</p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-gray-300 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Terms</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Contact</a>
+                </div>
+                <p class="text-xs text-gray-600">© 2025 The Testing Engine. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Parse URL parameters to get score and quiz data
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                score: parseInt(params.get('score')) || 0,
+                bottleneck: params.get('bottleneck') || '',
+                launchSpeed: params.get('launchSpeed') || '',
+                clientCount: params.get('clientCount') || '',
+                adSpend: params.get('adSpend') || '',
+                frustrationLevel: params.get('frustrationLevel') || ''
+            };
+        }
+
+        // Get score interpretation
+        function getScoreInterpretation(score) {
+            if (score <= 5) {
+                return {
+                    status: "You're Doing Great (But There's Still Upside)",
+                    statusClass: 'status-green',
+                    icon: '✅',
+                    barColor: 'bg-green-500',
+                    interpretation: `
+                        <p class="text-lg mb-4">Congratulations! You scored <strong>${score} out of 25</strong>, which means you're already operating faster than most agencies.</p>
+                        <p class="mb-4">Your clients are generally happy with your turnaround times, and you're not facing immediate churn risk. However, there's always room for optimization.</p>
+                        <p>Even small improvements in speed can compound into significant competitive advantages. Agencies that launch campaigns 25% faster see 15-20% higher client retention rates.</p>
+                    `
+                };
+            } else if (score <= 10) {
+                return {
+                    status: "You're Leaking Revenue (Quick Fixes Available)",
+                    statusClass: 'status-yellow',
+                    icon: '⚠️',
+                    barColor: 'bg-yellow-500',
+                    interpretation: `
+                        <p class="text-lg mb-4">You scored <strong>${score} out of 25</strong>, which indicates moderate bottlenecks that are costing you money.</p>
+                        <p class="mb-4">Your launch timelines are slower than they should be, and it's likely impacting client satisfaction. You're probably losing 1-2 retainers per year due to speed issues alone.</p>
+                        <p><strong>Estimated annual revenue leak: $25,000-$50,000</strong></p>
+                        <p>The good news? These issues are fixable with the right infrastructure and processes. Most agencies in this range can cut their launch time in half within 30-60 days.</p>
+                    `
+                };
+            } else if (score <= 15) {
+                return {
+                    status: "You're in the Danger Zone (Clients Will Churn Soon)",
+                    statusClass: 'status-orange',
+                    icon: '🚨',
+                    barColor: 'bg-orange-500',
+                    interpretation: `
+                        <p class="text-lg mb-4">You scored <strong>${score} out of 25</strong>, which puts you in the danger zone for client retention.</p>
+                        <p class="mb-4">Your agency has significant bottlenecks that are actively frustrating clients. You're likely losing 2-4 retainers per year specifically due to slow campaign launches.</p>
+                        <p class="mb-4"><strong>Estimated annual revenue leak: $50,000-$100,000</strong></p>
+                        <p>Multiple clients have probably mentioned being frustrated with your turnaround times. If you don't address this soon, you risk losing even more retainers in the next 6 months.</p>
+                        <p class="text-orange-500 font-semibold">Action required within the next 30 days.</p>
+                    `
+                };
+            } else {
+                return {
+                    status: "You're Bleeding Retainers (Immediate Action Required)",
+                    statusClass: 'status-red',
+                    icon: '🔥',
+                    barColor: 'bg-red-500',
+                    interpretation: `
+                        <p class="text-lg mb-4">You scored <strong>${score} out of 25</strong>, which indicates critical bottlenecks that are actively destroying your agency.</p>
+                        <p class="mb-4">Your slow launch times are a major liability. Clients are frustrated, and you're hemorrhaging retainers. You're likely losing 4-6+ clients per year specifically because of speed issues.</p>
+                        <p class="mb-4"><strong>Estimated annual revenue leak: $100,000+</strong></p>
+                        <p class="mb-4">This isn't just a minor inefficiency - it's an existential threat to your agency's growth. Your reputation is being damaged, and word is spreading that you're too slow.</p>
+                        <p class="text-red-500 font-bold text-xl">Immediate action required. Every week you wait costs you money.</p>
+                    `
+                };
+            }
+        }
+
+        // Get personalized recommendations based on quiz answers
+        function getRecommendations(data) {
+            const recommendations = [];
+
+            // Bottleneck-specific recommendations
+            if (data.bottleneck === 'design') {
+                recommendations.push({
+                    title: 'Your Design Bottleneck',
+                    icon: '🎨',
+                    content: 'Design is your primary constraint. You\'re spending 2-4 weeks on landing pages when top agencies are launching in 48 hours. The solution: pre-built templates and a design system that eliminates the "blank canvas" problem. Estimated time savings: 75%.'
+                });
+            } else if (data.bottleneck === 'copy') {
+                recommendations.push({
+                    title: 'Your Copywriting Bottleneck',
+                    icon: '✍️',
+                    content: 'Writing copy and creating offers is slowing you down. You need proven frameworks and templates that let you launch offers in hours, not days. Swipe files and fill-in-the-blank templates can reduce copywriting time by 60%.'
+                });
+            } else if (data.bottleneck === 'technical') {
+                recommendations.push({
+                    title: 'Your Technical Bottleneck',
+                    icon: '⚙️',
+                    content: 'Technical setup is killing your momentum. Forms, tracking pixels, hosting - you\'re doing everything manually. The solution: infrastructure-as-a-service that handles all technical details automatically. Estimated time savings: 85%.'
+                });
+            } else if (data.bottleneck === 'all') {
+                recommendations.push({
+                    title: 'You\'re Bottlenecked Everywhere',
+                    icon: '🔥',
+                    content: 'You\'re drowning in every part of the process. This is actually good news - it means you have massive upside potential. With the right infrastructure, you could reduce launch time by 80-90% and transform your entire agency operations.'
+                });
+            }
+
+            // Launch speed recommendation
+            if (data.launchSpeed === '3-4-weeks' || data.launchSpeed === '1-month-plus') {
+                recommendations.push({
+                    title: 'Your Launch Timeline is 10x Too Slow',
+                    icon: '⏱️',
+                    content: 'Top-performing agencies launch campaigns in 2-3 days. You\'re taking 3-4 weeks or longer. That\'s 10x slower than your competition. Every week of delay costs you client satisfaction and increases churn risk. You need standardized processes and automation to compress your timeline.'
+                });
+            }
+
+            // Frustration level warning
+            if (data.frustrationLevel === '3-5' || data.frustrationLevel === '6-plus') {
+                recommendations.push({
+                    title: '⚠️ Critical: High Client Frustration Detected',
+                    icon: '🚨',
+                    content: 'Multiple clients have complained about your speed. This is a red flag that you\'re at high risk of losing 2-3 retainers in the next 90 days. Client frustration compounds - once they start looking for alternatives, they rarely come back. You need to fix this immediately.',
+                    urgent: true
+                });
+            }
+
+            // Scale-specific recommendation
+            if (data.clientCount === '11-20' || data.clientCount === '20-plus') {
+                recommendations.push({
+                    title: 'You\'re Operating at Scale Without Infrastructure',
+                    icon: '📈',
+                    content: `Managing ${data.clientCount.replace('-', ' ')} requires systems, not hustle. Without proper infrastructure, you\'re stuck in "grind mode" forever. The solution: standardized workflows and automation that scale with your agency.`
+                });
+            }
+
+            return recommendations;
+        }
+
+        // Display results on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const data = getUrlParams();
+            const scoreInterpretation = getScoreInterpretation(data.score);
+            const recommendations = getRecommendations(data);
+
+            // Update score display
+            document.getElementById('score-display').textContent = data.score;
+
+            // Update status badge
+            const statusBadge = document.getElementById('status-badge');
+            statusBadge.classList.add(scoreInterpretation.statusClass);
+            document.getElementById('status-icon').textContent = scoreInterpretation.icon;
+            document.getElementById('status-text').textContent = scoreInterpretation.status;
+
+            // Update progress bar
+            const scorePercentage = (data.score / 25) * 100;
+            const scoreBar = document.getElementById('score-bar');
+            scoreBar.classList.add(scoreInterpretation.barColor);
+            setTimeout(() => {
+                scoreBar.style.width = scorePercentage + '%';
+            }, 300);
+
+            // Update interpretation
+            document.getElementById('interpretation-content').innerHTML = scoreInterpretation.interpretation;
+
+            // Display recommendations
+            const recommendationsContainer = document.getElementById('recommendations-container');
+            if (recommendations.length > 0) {
+                recommendations.forEach(rec => {
+                    const recCard = document.createElement('div');
+                    recCard.className = `bg-gray-800 border ${rec.urgent ? 'border-red-500' : 'border-gray-700'} rounded-xl p-6`;
+                    recCard.innerHTML = `
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl flex-shrink-0">${rec.icon}</div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3 ${rec.urgent ? 'text-red-500' : ''}">${rec.title}</h3>
+                                <p class="text-gray-300">${rec.content}</p>
+                            </div>
+                        </div>
+                    `;
+                    recommendationsContainer.appendChild(recCard);
+                });
+            }
+        });
+
+        // Update Calendly link (placeholder - user will customize)
+        document.getElementById('book-call-btn').href = 'https://calendly.com/your-link';
+    </script>
+
+</body>
+</html>

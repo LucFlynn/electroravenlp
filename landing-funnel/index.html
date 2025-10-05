@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Agencies Lose $50k+/Year in Retainers | The Testing Engine</title>
+    <meta name="description" content="Most agencies take 3-4 weeks to launch new campaigns. Take our 2-minute assessment to find out what's holding you back.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        /* Smooth transitions */
+        .quiz-question {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .quiz-question.hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .quiz-question.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Answer card hover effects */
+        .answer-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .answer-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.3), 0 10px 10px -5px rgba(139, 92, 246, 0.2);
+        }
+
+        .answer-card.selected {
+            border-color: #8b5cf6;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
+        }
+
+        /* Sticky header blur effect */
+        .header-blur {
+            backdrop-filter: blur(12px);
+            background-color: rgba(10, 10, 10, 0.8);
+        }
+
+        /* Progress bar animation */
+        .progress-bar {
+            transition: width 0.4s ease;
+        }
+
+        /* Gradient button */
+        .gradient-button {
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            transition: all 0.3s ease;
+        }
+
+        .gradient-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Modal animations */
+        .modal-backdrop {
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            transition: all 0.3s ease;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Loading spinner */
+        .spinner {
+            border: 3px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid #8b5cf6;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div class="text-xl font-bold">
+                <span class="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">The Testing Engine</span>
+            </div>
+            <a href="#" id="book-call-btn" class="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold text-sm transition-colors">
+                Book a Call
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                Why Agencies Lose <span class="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">$50k+/Year</span> in Retainers
+            </h1>
+            <p class="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
+                Most agencies take 3-4 weeks to launch new campaigns. Your clients don't have that kind of time. Take our 2-minute assessment to find out what's holding you back.
+            </p>
+            <div class="inline-flex items-center gap-2 text-sm text-gray-500">
+                <svg class="w-5 h-5 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Trusted by 150+ agencies managing $10M+ in ad spend</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Container -->
+    <section class="pb-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-gray-400" id="progress-text">Question 1 of 6</span>
+                    <span class="text-sm font-medium text-purple-500" id="progress-percent">17%</span>
+                </div>
+                <div class="w-full bg-gray-800 rounded-full h-2">
+                    <div class="progress-bar bg-gradient-to-r from-purple-500 to-cyan-500 h-2 rounded-full" id="progress-bar" style="width: 17%"></div>
+                </div>
+            </div>
+
+            <!-- Quiz Questions Container -->
+            <div id="quiz-container" class="bg-gray-900 rounded-2xl border border-gray-800 p-8 sm:p-12">
+
+                <!-- Question 1 -->
+                <div class="quiz-question active" data-question="1">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-3">What's your agency's biggest bottleneck right now?</h2>
+                    <p class="text-gray-400 mb-8">Select the option that best describes your situation</p>
+
+                    <div class="space-y-4">
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="design" data-points="0">
+                            <div class="flex items-start gap-4">
+                                <div class="text-3xl">🎨</div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">Design takes forever</h3>
+                                    <p class="text-gray-400 text-sm">Landing pages take 2-4 weeks to get made</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="copy" data-points="0">
+                            <div class="flex items-start gap-4">
+                                <div class="text-3xl">✍️</div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">We're stuck writing copy</h3>
+                                    <p class="text-gray-400 text-sm">Crafting offers and lead magnets slows us down</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="technical" data-points="0">
+                            <div class="flex items-start gap-4">
+                                <div class="text-3xl">⚙️</div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">Technical setup is a nightmare</h3>
+                                    <p class="text-gray-400 text-sm">Forms, tracking, hosting - it's all manual</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="all" data-points="0">
+                            <div class="flex items-start gap-4">
+                                <div class="text-3xl">🔥</div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">All of the above</h3>
+                                    <p class="text-gray-400 text-sm">We're drowning in every part of the process</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-question hidden" data-question="2">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-3">How long does it typically take you to launch a new campaign?</h2>
+                    <p class="text-gray-400 mb-8">From concept to live</p>
+
+                    <div class="space-y-4">
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="2-3-days" data-points="0">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">2-3 days</h3>
+                                    <p class="text-gray-400 text-sm">We're pretty quick</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="1-2-weeks" data-points="2">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">1-2 weeks</h3>
+                                    <p class="text-gray-400 text-sm">Standard timeline</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="3-4-weeks" data-points="4">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">3-4 weeks</h3>
+                                    <p class="text-gray-400 text-sm">Slower than we'd like</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="1-month-plus" data-points="6">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">1+ months</h3>
+                                    <p class="text-gray-400 text-sm">Way too long</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="quiz-question hidden" data-question="3">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-3">How many active retainer clients do you manage?</h2>
+                    <p class="text-gray-400 mb-8">Total clients paying recurring fees</p>
+
+                    <div class="space-y-4">
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="1-5" data-points="1">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg">1-5 clients</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="6-10" data-points="2">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg">6-10 clients</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="11-20" data-points="3">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg">11-20 clients</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="20-plus" data-points="4">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg">20+ clients</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="quiz-question hidden" data-question="4">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-3">What's your total monthly ad spend across all clients?</h2>
+                    <p class="text-gray-400 mb-8">Combined budget you're managing</p>
+
+                    <div class="space-y-4">
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="under-25k" data-points="1">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg">Under $25k/month</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="25k-75k" data-points="2">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg">$25k-$75k/month</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="75k-150k" data-points="3">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg">$75k-$150k/month</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="150k-plus" data-points="4">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg">$150k+/month</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="quiz-question hidden" data-question="5">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-3">In the last 3 months, how many retainer clients mentioned being frustrated with your speed?</h2>
+                    <p class="text-gray-400 mb-8">Be honest - this helps us give you better recommendations</p>
+
+                    <div class="space-y-4">
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="none" data-points="0">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">None - we're crushing it</h3>
+                                    <p class="text-gray-400 text-sm">Zero complaints about speed</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="1-2" data-points="3">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">1-2 clients - minor grumbles</h3>
+                                    <p class="text-gray-400 text-sm">A few comments here and there</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="3-5" data-points="5">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">3-5 clients - it's becoming a problem</h3>
+                                    <p class="text-gray-400 text-sm">Multiple clients have raised concerns</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-card bg-gray-800 border-2 border-gray-700 rounded-xl p-6 hover:border-purple-500" data-value="6-plus" data-points="7">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-lg mb-1">6+ clients - we're bleeding retainers</h3>
+                                    <p class="text-gray-400 text-sm">This is a serious issue for us</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 - Lead Capture -->
+                <div class="quiz-question hidden" data-question="6">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-3">Get your personalized bottleneck report</h2>
+                    <p class="text-gray-400 mb-8">We'll send you a custom analysis based on your answers</p>
+
+                    <form id="lead-form" class="space-y-6">
+                        <div>
+                            <label for="full-name" class="block text-sm font-medium text-gray-300 mb-2">Full Name *</label>
+                            <input type="text" id="full-name" name="full-name" required
+                                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition text-white">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Work Email *</label>
+                            <input type="email" id="email" name="email" required
+                                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition text-white">
+                        </div>
+
+                        <div>
+                            <label for="company" class="block text-sm font-medium text-gray-300 mb-2">Company Name</label>
+                            <input type="text" id="company" name="company"
+                                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition text-white">
+                        </div>
+
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Phone</label>
+                            <input type="tel" id="phone" name="phone"
+                                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition text-white">
+                            <p class="text-xs text-gray-500 mt-1">For faster follow-up</p>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" id="newsletter" name="newsletter"
+                                   class="mt-1 w-4 h-4 bg-gray-800 border-gray-700 rounded focus:ring-purple-500">
+                            <label for="newsletter" class="text-sm text-gray-300">
+                                Send me the weekly Agency Infrastructure newsletter (tips on launching faster, case studies, templates)
+                            </label>
+                        </div>
+
+                        <button type="submit" id="submit-btn"
+                                class="w-full gradient-button text-white font-bold py-4 px-8 rounded-lg text-lg">
+                            Get My Custom Report
+                        </button>
+
+                        <p class="text-xs text-gray-500 text-center">
+                            We respect your privacy. Unsubscribe anytime. We'll use this info to send your results and occasional tips on scaling your agency.
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex items-center justify-between mt-8 pt-8 border-t border-gray-800" id="nav-buttons">
+                    <button id="back-btn" class="px-6 py-3 text-gray-400 hover:text-white font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        ← Back
+                    </button>
+                    <button id="next-btn" class="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Next →
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">Trusted by Agencies Managing $10M+ in Ad Spend</h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-800 border border-gray-700 rounded-xl p-8">
+                    <div class="flex gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                    <p class="text-gray-300 mb-6">"Before Testing Engine, we were taking 3 weeks to get offers live. Now it's 48 hours. Client retention is up 40%."</p>
+                    <div>
+                        <p class="font-semibold">Sarah Chen</p>
+                        <p class="text-sm text-gray-500">Founder @ ScaleHouse Agency</p>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-800 border border-gray-700 rounded-xl p-8">
+                    <div class="flex gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                    <p class="text-gray-300 mb-6">"I was the bottleneck. Every landing page, every lead magnet - I had to build it myself. Now my team just focuses on strategy and results."</p>
+                    <div>
+                        <p class="font-semibold">Marcus Williams</p>
+                        <p class="text-sm text-gray-500">Owner @ Velocity Media</p>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-800 border border-gray-700 rounded-xl p-8">
+                    <div class="flex gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                    <p class="text-gray-300 mb-6">"We went from losing 2-3 retainers per quarter to zero churn in 6 months. The speed alone changed everything."</p>
+                    <div>
+                        <p class="font-semibold">Jennifer Park</p>
+                        <p class="text-sm text-gray-500">CEO @ Growth Partners</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col items-center justify-center gap-4">
+                <div class="text-xl font-bold">
+                    <span class="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">The Testing Engine</span>
+                </div>
+                <p class="text-gray-500 text-sm">Infrastructure for agencies that move fast</p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-gray-300 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Terms</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Contact</a>
+                </div>
+                <p class="text-xs text-gray-600">© 2025 The Testing Engine. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Exit Intent Modal -->
+    <div id="exit-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="modal-backdrop fixed inset-0 bg-black/80" onclick="closeExitModal()"></div>
+        <div class="modal-content fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-lg mx-4">
+            <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 relative">
+                <button onclick="closeExitModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+
+                <h3 class="text-2xl font-bold mb-3">Wait! Get the Free Resource Instead</h3>
+                <p class="text-gray-400 mb-6">Not ready for the full assessment? Download our free guide: <span class="font-semibold text-white">"The 48-Hour Launch System: How to Get Campaigns Live in 2 Days, Not 2 Weeks"</span></p>
+
+                <form id="exit-form" class="space-y-4">
+                    <input type="email" id="exit-email" name="exit-email" required
+                           placeholder="Enter your email"
+                           class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition text-white">
+                    <button type="submit" class="w-full gradient-button text-white font-bold py-3 px-6 rounded-lg">
+                        Send Me the Guide
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 z-[200] hidden bg-black/90 flex items-center justify-center">
+        <div class="text-center">
+            <div class="spinner mx-auto mb-4"></div>
+            <p class="text-gray-300">Calculating your results...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/tracking.js"></script>
+    <script src="assets/js/quiz-handler.js"></script>
+
+</body>
+</html>
